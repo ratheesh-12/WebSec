@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { authAPI } from '../services/api';
-import './Auth.css';
+import './Auth_new.css';
 
 const Login = ({ login }) => {
   const [formData, setFormData] = useState({
@@ -44,21 +44,26 @@ const Login = ({ login }) => {
 
   return (
     <div className="auth-container">
-      <div className="card">
-        <div className="card-header">
+      <div className="auth-background">
+        <div className="auth-particles"></div>
+      </div>
+      <div className="form-container slide-in-up">
+        <div className="auth-header">
+          <div className="auth-icon">🔐</div>
           <h1>Welcome Back</h1>
-          <p>Sign in to your secure account</p>
+          <p>Access your secure WebSec account</p>
         </div>
-
+        
         {error && (
-          <div className="alert alert-error">
+          <div className="alert alert-error slide-in-down">
+            <span className="alert-icon">⚠️</span>
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
-            <label htmlFor="email">Email Address</label>
+            <label htmlFor="email" className="form-label">Email Address</label>
             <input
               type="email"
               id="email"
@@ -66,13 +71,13 @@ const Login = ({ login }) => {
               value={formData.email}
               onChange={handleChange}
               className="form-input"
-              placeholder="Enter your email"
+              placeholder="Enter your email address"
               required
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password" className="form-label">Password</label>
             <input
               type="password"
               id="password"
@@ -90,22 +95,34 @@ const Login = ({ login }) => {
             className={`btn btn-primary btn-full ${loading ? 'btn-loading' : ''}`}
             disabled={loading}
           >
-            {loading ? 'Signing In...' : 'Sign In'}
+            {loading ? (
+              <>
+                <span className="loading-spinner-small"></span>
+                Authenticating...
+              </>
+            ) : (
+              <>
+                <span className="btn-icon">🔓</span>
+                Sign In Securely
+              </>
+            )}
           </button>
         </form>
 
         <div className="auth-footer">
-          <p>
-            Don't have an account?{' '}
-            <Link to="/register" className="nav-link">
-              Create one here
-            </Link>
-          </p>
-          <p>
-            <Link to="/password-validator" className="nav-link">
+          <div className="auth-divider">
+            <span>New to WebSec?</span>
+          </div>
+          <Link to="/register" className="btn btn-secondary btn-full">
+            <span className="btn-icon">✨</span>
+            Create Secure Account
+          </Link>
+          <div className="auth-links">
+            <Link to="/password-validator" className="auth-link">
+              <span className="link-icon">🛡️</span>
               Test Password Strength
             </Link>
-          </p>
+          </div>
         </div>
       </div>
     </div>

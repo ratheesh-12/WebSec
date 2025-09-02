@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { authAPI } from '../services/api';
-import './Auth.css';
+import './Auth_new.css';
 
 const Register = ({ login }) => {
   const [formData, setFormData] = useState({
@@ -103,21 +103,26 @@ const Register = ({ login }) => {
 
   return (
     <div className="auth-container">
-      <div className="card" style={{ maxWidth: '600px' }}>
-        <div className="card-header">
+      <div className="auth-background">
+        <div className="auth-particles"></div>
+      </div>
+      <div className="form-container slide-in-up" style={{ maxWidth: '600px' }}>
+        <div className="auth-header">
+          <div className="auth-icon">🛡️</div>
           <h1>Create Account</h1>
           <p>Join WebSec with enterprise-grade security</p>
         </div>
 
         {error && (
-          <div className="alert alert-error">
+          <div className="alert alert-error slide-in-down">
+            <span className="alert-icon">⚠️</span>
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
-            <label htmlFor="name">Full Name</label>
+            <label htmlFor="name" className="form-label">Full Name</label>
             <input
               type="text"
               id="name"
@@ -131,7 +136,7 @@ const Register = ({ login }) => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="email">Email Address</label>
+            <label htmlFor="email" className="form-label">Email Address</label>
             <input
               type="email"
               id="email"
@@ -139,13 +144,13 @@ const Register = ({ login }) => {
               value={formData.email}
               onChange={handleChange}
               className="form-input"
-              placeholder="Enter your email"
+              placeholder="Enter your email address"
               required
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password" className="form-label">Password</label>
             <input
               type="password"
               id="password"

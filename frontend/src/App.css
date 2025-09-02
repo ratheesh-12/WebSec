@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&display=swap');
+
 /* Global Styles */
 * {
   margin: 0;
@@ -5,12 +7,71 @@
   box-sizing: border-box;
 }
 
+:root {
+  /* Cybersecurity Color Palette */
+  --primary-bg: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 25%, #16213e  50%, #0f3460 75%, #533483 100%);
+  --secondary-bg: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  
+  /* Accent Colors */
+  --neon-cyan: #00f5ff;
+  --neon-purple: #8a2be2;
+  --neon-green: #39ff14;
+  --electric-blue: #0080ff;
+  --warning-orange: #ff6b35;
+  --danger-red: #ff073a;
+  
+  /* Text Colors */
+  --text-primary: #ffffff;
+  --text-secondary: #b8c1ec;
+  --text-muted: #8892b0;
+  --text-accent: var(--neon-cyan);
+  
+  /* Success & Error */
+  --success: var(--neon-green);
+  --error: var(--danger-red);
+  --warning: var(--warning-orange);
+  
+  /* Shadows */
+  --glow-cyan: 0 0 20px rgba(0, 245, 255, 0.3);
+  --glow-purple: 0 0 20px rgba(138, 43, 226, 0.3);
+  --glow-green: 0 0 20px rgba(57, 255, 20, 0.3);
+  --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  font-family: 'Inter', sans-serif;
+  background: var(--primary-bg);
+  background-attachment: fixed;
+  color: var(--text-primary);
   min-height: 100vh;
-  color: #2c3e50;
   overflow-x: hidden;
+}
+
+/* Animated background particles */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(0, 245, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(138, 43, 226, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 60%, rgba(57, 255, 20, 0.05) 0%, transparent 50%);
+  animation: float 20s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-20px) rotate(1deg); }
+  66% { transform: translateY(10px) rotate(-1deg); }
 }
 
 .App {
@@ -32,19 +93,36 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  color: #495057;
+  height: 100vh;
+  background: var(--primary-bg);
+  background-attachment: fixed;
+}
+
+.loading-container p {
+  color: var(--text-secondary);
+  margin-top: 20px;
+  font-weight: 500;
+  font-size: 16px;
+  animation: textGlow 2s ease-in-out infinite;
 }
 
 .loading-spinner {
-  width: 50px;
-  height: 50px;
-  border: 4px solid rgba(73, 80, 87, 0.3);
-  border-top: 4px solid #495057;
+  width: 60px;
+  height: 60px;
+  border: 3px solid transparent;
   border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin-bottom: 1rem;
+  background: conic-gradient(var(--neon-cyan), var(--neon-purple), var(--electric-blue), var(--neon-cyan));
+  animation: spin 1.5s linear infinite;
+  position: relative;
+}
+
+.loading-spinner::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  background: var(--primary-bg);
+  border-radius: 50%;
+  z-index: 1;
 }
 
 @keyframes spin {
@@ -52,16 +130,32 @@ body {
   100% { transform: rotate(360deg); }
 }
 
+/* Glass morphism effect */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+}
+
 /* Card Styles */
 .card {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 12px;
-  padding: 2.5rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: var(--shadow-soft);
+  transition: all 0.3s ease;
   margin: 2rem auto;
   max-width: 500px;
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
 }
 
 .card-header {
